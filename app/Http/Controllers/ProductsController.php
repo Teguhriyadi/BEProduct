@@ -98,20 +98,18 @@ class ProductsController extends Controller
                 ]);
             }
 
-            // Hapus semua kategori yang terkait dengan produk
             foreach ($product->categories as $category) {
-                // Hapus gambar dari storage dan database
                 foreach ($category->images as $image) {
                     $imagePath = storage_path("app/public/" . $image->image);
                     if (file_exists($imagePath)) {
-                        unlink($imagePath); // Hapus file dari storage
+                        unlink($imagePath);
                     }
-                    $image->delete(); // Hapus record dari database
+                    $image->delete();
                 }
-                $category->delete(); // Hapus kategori
+                $category->delete();
             }
 
-            $product->delete(); // Hapus produk
+            $product->delete();
 
             DB::commit();
 
